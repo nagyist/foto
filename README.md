@@ -1,4 +1,4 @@
-# Using the FOTO functions
+# The FOTO toolbox
 
 FOTO (Fourier Transform Textural Ordination) method as described by Proisy et al. 2007 / Barbier et al. 2011 / Ploton et al. 2012. The FOTO method uses a principal component analysis (PCA) on radially averaged 2D fourier spectra to characterize (greyscale) image texture. Code is provided for MATLAB and R, an Octave version is planned.
 
@@ -19,7 +19,8 @@ In R set the working path to the R script folder and source the FOTO script file
 
 The function relies on the R raster() library, so make sure the library and all it's dependencies are installed.
 
-## MATLAB
+## Use
+### MATLAB
 
 To run the script provide a path to an image and the size of the window size to use (in pixels).
 
@@ -31,7 +32,7 @@ In addition these spectra are written to a csv file (rspectra.csv) for processin
 
 A visualization of the textural ordination is provided at the end of the function run.
 
-## R
+### R
 
 The structure of the function call is identical to MATLAB one.
 
