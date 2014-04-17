@@ -1,12 +1,18 @@
 # The FOTO toolbox
 
-FOTO (Fourier Transform Textural Ordination) method as described by Proisy et al. 2007 / Barbier et al. 2011 / Ploton et al. 2012. The FOTO method uses a principal component analysis (PCA) on radially averaged 2D fourier spectra to characterize (greyscale) image texture. Code is provided for MATLAB and R, an Octave version is planned.
+FOTO (Fourier Transform Textural Ordination) method as used in [Couteron et al. 2005](http://onlinelibrary.wiley.com/doi/10.1111/j.1365-2664.2005.01097.x/abstract;jsessionid=359DD0662C272A59AF94FAEF3F213156.f02t04), [Proisy et al. 2007](http://linkinghub.elsevier.com/retrieve/pii/S0034425707000430), [Barbier et al. 2010](http://doi.wiley.com/10.1111/j.1466-8238.2009.00493.x) and [Ploton et al. 2012](http://www.esajournals.org/doi/abs/10.1890/11-1606.1). The FOTO method uses a principal component analysis (PCA) on radially averaged 2D fourier spectra to characterize (greyscale) image texture.
+
+Although the techique as presented in these papers is applied on a canopy level, the principle works as well on a smaller scale (at a higher resolution). A proof of concept using a UAV over a grassland can be found in [one of my blog posts](http://www.khufkens.com/2013/08/29/uav-vegetation-monitoring/).
+
+Code is provided for MATLAB and R, an Octave version is planned.
 
 ## Installation
 
 clone the project to your home computer using
 
 	git clone https://khufkens@bitbucket.org/khufkens/foto.git
+
+alternatively, download the project using [this link](https://bitbucket.org/khufkens/foto/get/master.zip).
 
 Add the path of the project on your home computer to the MATLAB PATH.
 
@@ -34,7 +40,7 @@ A visualization of the textural ordination is provided at the end of the functio
 
 ### R
 
-The structure of the function call is identical to MATLAB one.
+The structure of the function call is identical to MATLAB one (see above).
 
 	FOTO(/foo/bar/myimage.jpg,20)
 
@@ -42,4 +48,8 @@ However, no output variables can be declared. Instead, a set of global variables
 
 The raw rspectra are stored in a table called, output. The normalized values are located in noutput. The results of the principal component ordination is stored in the pcfit variable. A final classification image is stored in a rasterBrick called RGB.
 
-A visualization of the textural ordination is provided at the end of the function run.
+A visualization of the textural ordination is provided at the end of the function run, but is optional (can be disabled).
+
+## Partitioned normalization
+
+Partiotioned normalization as described in [Barbier et al. 2010](http://doi.wiley.com/10.1111/j.1466-8238.2009.00493.x) is not provided but easily accomplished once all images are processed. I refer to this paper for the appropriate routines. If you have no access to this work due to paywall restrictions please email me or the original author for a copy. 
