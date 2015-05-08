@@ -4,7 +4,7 @@ FOTO (Fourier Transform Textural Ordination) method as used in [Couteron et al. 
 
 Although the techique as presented in these papers is applied on a canopy level, the principle works as well on a smaller scale (at a higher resolution). A proof of concept using a UAV over a grassland can be found in [one of my blog posts](http://www.khufkens.com/2013/08/29/uav-vegetation-monitoring/).
 
-Code is provided for MATLAB and R, an Octave version is planned.
+Code is provided for MATLAB and R.
 
 ## Installation
 
@@ -52,4 +52,4 @@ A visualization of the textural ordination is provided at the end of the functio
 
 ## Partitioned normalization
 
-Partiotioned normalization as described in [Barbier et al. 2010](http://doi.wiley.com/10.1111/j.1466-8238.2009.00493.x) is not provided but easily accomplished once all images are processed. I refer to this paper for the appropriate routines. If you have no access to this work due to paywall restrictions please email me or the original author for a copy. 
+Partiotioned normalization as described in [Barbier et al. 2010](http://doi.wiley.com/10.1111/j.1466-8238.2009.00493.x) is not provided but easily accomplished once all images are processed. I refer to this paper for the appropriate routines. If you have no access to this work due to paywall restrictions please email me or the original author for a copy.
