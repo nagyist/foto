@@ -10,9 +10,9 @@ Code is provided for MATLAB and R.
 
 clone the project to your home computer using
 
-	git clone https://khufkens@bitbucket.org/khufkens/foto.git
+	git clone https://github.com/khufkens/foto.git
 
-alternatively, download the project using [this link](https://bitbucket.org/khufkens/foto/get/master.zip).
+alternatively, download the project using download button.
 
 Add the path of the project on your home computer to the MATLAB PATH.
 
