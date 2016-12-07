@@ -38,19 +38,19 @@ rspectrum <- function(x, w, n=TRUE, ...){
     # define distance matrix
     # r is rounded to an integer by zonal
     r <- sqrt((col(im)-offset)^2 + (row(im)-offset)^2)
-          
+    
     # calculate the mean spectrum for distances r
     # (note: reverse the order of the results to center
     # the FFT spectrum)
     rspec <- rev(zonal(raster(fftim),raster(r),fun='mean',na.rm=TRUE)[,2])
-        
+    
     if (n == "TRUE" || n=="T"){
       
       # Normalize by dividing with the image standard deviation
       # publictions are inconsisten on the use of normalization
       # need to clarify this better.
       rspec <- rspec/sd(im,na.rm=TRUE)
-    
+      
     }    
     
     # set first two values to 0 these are inherent to the

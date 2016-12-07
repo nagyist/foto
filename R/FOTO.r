@@ -59,8 +59,8 @@ FOTO <- function(x='',windowsize=61,plt=FALSE,rspectrum.n=TRUE){
   }
   
   # get number of cells to be aggregated to
-  N <- ceiling(img@nrows/windowsize)
-  M <- ceiling(img@ncols/windowsize)
+  N <- img@nrows
+  M <- img@ncols
   cells <- N*M
   
   # output matrix has a maximum vector length of 29
@@ -75,29 +75,29 @@ FOTO <- function(x='',windowsize=61,plt=FALSE,rspectrum.n=TRUE){
   i <<- 0
   
   # for every zone execute the r-spectrum function
-  zones <<- aggregate(img, fact=windowsize, fun=function(x,...){rspectrum(x=x,w=windowsize,n=rspectrum.n,...)},expand=TRUE,na.rm=TRUE)
+  zones <<- focal(img,matrix(rep(1,windowsize*windowsize),ncol=windowsize,nrow=windowsize), fun=function(x,...){rspectrum(x=x,w=windowsize,n=rspectrum.n,...)},expand=TRUE,na.rm=TRUE)
   
   # 3. reformat the r-spectrum output (normalize) and apply a PCA
   # set all infinite values to NA
   output[is.infinite(output)] <- NA
-    
+  
   # normalize matrix column wise (ignoring NA values)
   # (this routine doesn't increase the accuracy of the
   # resulting map, if not it produces worse output. 
   # uncomment the code if wanted)
-    
+  
   # normalize column wise by substracting the mean
   # and dividing with the standard deviation
   # keep original input file for reference
   # look up reference!
   noutput <<- (output - apply(output,2,function(output)mean(output,na.rm=T))[col(output)])/apply(output,2,function(output)sd(output,na.rm=T))[col(output)]
-    
+  
   # set NA/Inf values to 0 as the pca analys doesn't take NA values
   noutput[is.infinite(noutput) | is.na(noutput)] <- 0
   
   # the principal component analysis
   pcfit <<- princomp(noutput)
-
+  
   # create reclass files based upon PCA scores
   # only the first 3 PC will be considered
   for (i in 1:3){
@@ -114,12 +114,15 @@ FOTO <- function(x='',windowsize=61,plt=FALSE,rspectrum.n=TRUE){
   # made of pca scores, colours correspond to
   # different scores as split between the scores
   # of the first three pca axis
-  RGB <<- brick(PC.1,PC.2,PC.3)
+  #Changed to imgRGB instead of RGB to avoid conflicts with function RGB{raster}
+  imgRGB <- brick(PC.1,PC.2,PC.3)
+  #assign PC_stack as an object with the brick of the first three PC
+  assign('PC_stack',imgRGB,envir=.GlobalEnv)
   
   # 4. plot the classification using an RGB representation of the first 3 PC
   if (plt=="T" | plt=="TRUE"){ # if print is true print the pca classification results
-    plot(img,col=gray(0:100/100),legend=FALSE,box=FALSE,axes=FALSE)
-    plotRGB(RGB,stretch='hist',add=TRUE,alpha=128)
+    plot(img)
+    plotRGB(PC_stack,stretch='hist',add=TRUE,alpha=128)
   }
-
+  
 }
