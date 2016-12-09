@@ -1,3 +1,3 @@
 Major changes:
 
-FOTO with moving window approach, result has the same resolution as the original image.
+Applies FOTO with a moving window approach. Therefore the results have the same pixel resolution as the input
