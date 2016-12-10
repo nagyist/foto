@@ -52,7 +52,7 @@ A visualization of the textural ordination is provided at the end of the functio
 
 #### moving window approach
 
-An addition by (JonathanVSV)[https://github.com/JonathanVSV] now allows for the use of a moving window instead of a gridded sampling of the input image - a big thank you goes out to Jonathan for this addition. Use the parameter methods="zones" for the original gridded approach or methods="mw" for a moving window analysis. The moving window analysis will require large amounts of working memory. No checks are in place to guarantee if this is the case. As such you might run into out of memory issues for large images or the moving window approach in particular.
+An addition by [Jonathan Solorzano](https://github.com/JonathanVSV) now allows for the use of a moving window instead of a gridded sampling of the input image - a big thank you goes out to Jonathan for this addition. Use the parameter methods="zones" for the original gridded approach or methods="mw" for a moving window analysis. The moving window analysis will require large amounts of working memory. No checks are in place to guarantee if this is the case. As such you might run into out of memory issues for large images or the moving window approach in particular.
 
 ## Partitioned normalization
 
