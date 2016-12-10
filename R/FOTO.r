@@ -17,12 +17,12 @@
 # UPDATE:
 #------------------------------------------------------------------------
 
-FOTO <- function(x='',windowsize=61,plt=FALSE,rspectrum.n=TRUE){
+FOTO <- function(x='',windowsize=61,method="zones",plt=FALSE,rspectrum.n=TRUE){
   
   # 1. load libraries and helper function rspectrum / normalize 
   require(raster)
-  source('rspectrum.r')
-  source('normalize.r')
+  #source('rspectrum.r')
+  #source('normalize.r')
   
   # standard normalization between 0 and 1
   # this code saves some space further down
@@ -58,24 +58,38 @@ FOTO <- function(x='',windowsize=61,plt=FALSE,rspectrum.n=TRUE){
     }
   }
   
-  # get number of cells to be aggregated to
-  N <- ceiling(img@nrows/windowsize)
-  M <- ceiling(img@ncols/windowsize)
-  cells <- N*M
+  if(method=="zones"|method=="mw"){
+    if(method=="zones"){
+      # get number of cells to be aggregated to
+      N <- ceiling(img@nrows/windowsize)
+      M <- ceiling(img@ncols/windowsize)
+      cells <- N*M
+    }else{
+      # get number of cells to be aggregated to
+      N <- img@nrows
+      M <- img@ncols
+      cells <- N*M
+    }
+  }else{
+    print("Choose an available method: zones or mw")
+  }
   
-  # output matrix has a maximum vector length of 29
+  # define output matrix and global increment, i
   if( windowsize/2 < 29){
     output <<- matrix(0,cells,windowsize/2)
   }else{
     output <<- matrix(0,cells,29)
   }
   
-  # define output matrix and global increment, i
   # see rspectrum function above
   i <<- 0
   
   # for every zone execute the r-spectrum function
-  zones <<- aggregate(img, fact=windowsize, fun=function(x,...){rspectrum(x=x,w=windowsize,n=rspectrum.n,...)},expand=TRUE,na.rm=TRUE)
+  if(method=="zones"){
+    zones <<- aggregate(img, fact=windowsize, fun=function(x,...){rspectrum(x=x,w=windowsize,n=rspectrum.n,...)},expand=TRUE,na.rm=TRUE)
+  }else{
+    zones <<- focal(img,matrix(rep(1,windowsize*windowsize),ncol=windowsize,nrow=windowsize), fun=function(x,...){rspectrum(x=x,w=windowsize,n=rspectrum.n,...)},expand=TRUE,na.rm=TRUE)
+  }
   
   # 3. reformat the r-spectrum output (normalize) and apply a PCA
   # set all infinite values to NA
@@ -114,12 +128,13 @@ FOTO <- function(x='',windowsize=61,plt=FALSE,rspectrum.n=TRUE){
   # made of pca scores, colours correspond to
   # different scores as split between the scores
   # of the first three pca axis
-  RGB <<- brick(PC.1,PC.2,PC.3)
+  img_RGB <- brick(PC.1,PC.2,PC.3)
   
   # 4. plot the classification using an RGB representation of the first 3 PC
   if (plt=="T" | plt=="TRUE"){ # if print is true print the pca classification results
     plot(img,col=gray(0:100/100),legend=FALSE,box=FALSE,axes=FALSE)
-    plotRGB(RGB,stretch='hist',add=TRUE,alpha=128)
+    plotRGB(img_RGB,stretch='hist',add=TRUE,alpha=128,bgalpha=0)
+    return(img_RGB)
   }
 
 }
