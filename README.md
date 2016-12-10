@@ -50,6 +50,10 @@ The raw rspectra are stored in a table called, output. The normalized values are
 
 A visualization of the textural ordination is provided at the end of the function run, but is optional (can be disabled).
 
+#### moving window approach
+
+An addition by (JonathanVSV)[https://github.com/JonathanVSV] now allows for the use of a moving window instead of a gridded sampling of the input image - a big thank you goes out to Jonathan for this addition. Use the parameter methods="zones" for the original gridded approach or methods="mw" for a moving window analysis. The moving window analysis will require large amounts of working memory. No checks are in place to guarantee if this is the case. As such you might run into out of memory issues for large images or the moving window approach in particular.
+
 ## Partitioned normalization
 
 Partiotioned normalization as described in [Barbier et al. 2010](http://doi.wiley.com/10.1111/j.1466-8238.2009.00493.x) is not provided but easily accomplished once all images are processed. I refer to this paper for the appropriate routines. If you have no access to this work due to paywall restrictions please email me or the original author for a copy.
